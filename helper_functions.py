@@ -1,3 +1,7 @@
+import pandas as pd
+import re
+import numpy as np
+
 def split_into_sentences(text):
 
     """
@@ -68,3 +72,24 @@ def count_alpha(text):
     filtered = [c.lower() for c in text if c.isalpha()]
     cnt = len(filtered)
     return cnt    
+
+
+
+def clean_text(string): 
+    # Turn warnings off because BeautifulSoup give some we don't care about
+    # warnings.filterwarnings('ignore')
+    
+    # Remove xml formatting.
+    review_text = BeautifulSoup(string, "lxml").get_text() 
+    
+    # Turn warnings back on
+    # warnings.resetwarnings()
+    
+    # Remove all characters not in the English alphabet
+    string = re.sub("[^a-zA-Z]"," ", string)
+    
+    # Set all characters to lower case.
+    string = string.lower()
+    
+    return string
+
